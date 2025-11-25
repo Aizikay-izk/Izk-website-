@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Form | IZK</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* --- GENERAL RESET --- */
+* { box-sizing: border-box; margin:0; padding:0; }
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, #2193b0, #6dd5ed, #1e3c72);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    color: #fff;
+    padding: 20px;
+}
+@keyframes gradientBG {
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* --- HEADER --- */
+.hero {
+    text-align: center;
+    margin: 40px 20px;
+}
+.hero h1 {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    font-size: 2.8em;
+    text-shadow: 2px 2px 15px rgba(0,0,0,0.3);
+    background: linear-gradient(90deg, #1e90ff, #00c6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: floatText 3s ease-in-out infinite alternate;
+}
+.hero h5 {
+    font-weight: 400;
+    font-size: 1.2em;
+    margin-top: 10px;
+    color: #e0f7ff;
+}
+
+/* --- FORM --- */
+form {
+    background: rgba(0,0,50,0.25);
+    padding: 30px 35px;
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    width: 100%;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+form label { font-weight: 600; margin-bottom: 5px; }
+form input[type="text"], form input[type="email"] {
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    transition: all 0.3s ease;
+}
+form input[type="text"]:focus, form input[type="email"]:focus {
+    box-shadow: 0 0 15px rgba(0,150,255,0.7);
+    transform: scale(1.03);
+}
+fieldset {
+    border: none;
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0;
+}
+fieldset label { cursor: pointer; }
+
+/* --- BUTTON --- */
+button {
+    padding: 15px;
+    font-size: 1.1em;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background: linear-gradient(45deg, #1e90ff, #00c6ff);
+    transition: all 0.3s ease;
+    color: #fff;
+}
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    background: linear-gradient(45deg, #00c6ff, #1e90ff);
+}
+
+/* --- ANIMATIONS --- */
+@keyframes floatText { 0%{transform:translateY(0);} 50%{transform:translateY(-10px);} 100%{transform:translateY(0);} }
+
+/* --- RESPONSIVE --- */
+@media (max-width:768px){ .hero h1{font-size:2.2em;} .hero h5{font-size:1em;} form{padding:25px;} }
+@media (max-width:480px){ .hero h1{font-size:1.8em;} .hero h5{font-size:0.9em;} form{padding:20px;} button{font-size:1em; padding:12px;} }
+
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>Welcome to Coding</h1>
+  <h5>Code with IZK</h5>
+</header>
+
+<form id="interactiveForm">
+  <label for="name">Name:</label>
+  <input type="text" id="name" placeholder="Your Name" required>
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" placeholder="Your Email" required>
+
+  <fieldset>
+    <legend>Gender:</legend>
+    <label><input type="radio" name="gender" value="Male" data-audio="male.mp3"> Male</label>
+    <label><input type="radio" name="gender" value="Female" data-audio="female.mp3"> Female</label>
+    <label><input type="radio" name="gender" value="Gay" data-audio="Ha! Gay - QuickSounds.com.mp3"> Gay</label>
+  </fieldset>
+
+  <button type="submit">Submit</button>
+</form>
+
+<!-- Audio element -->
+<audio id="audioPlayer"></audio>
+
+<script>
+// --- Play audio when radio button clicked ---
+const radios = document.querySelectorAll('input[type="radio"][data-audio]');
+const audioPlayer = document.getElementById('audioPlayer');
+
+radios.forEach(radio => {
+    radio.addEventListener('change', () => {
+        const audioSrc = radio.dataset.audio;
+        audioPlayer.src = audioSrc;
+        audioPlayer.play();
+    });
+});
+
+// --- Form submit validation ---
+const form = document.getElementById('interactiveForm');
+form.addEventListener('submit', function(e){
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const gender = document.querySelector('input[name="gender"]:checked');
+
+    if(name === "" || email === "" || !gender){
+        alert("Please fill all fields before submitting!");
+        return;
+    }
+
+    // Redirect to link after validation
+    window.location.href = "https://share.google/VFPk6p8rwvaCLA1t5"; // Replace with your target URL
+});
+</script>
+
+</body>
+</html>
